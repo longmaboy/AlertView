@@ -3,7 +3,7 @@
 
 # 先看效果图
     ![Image text]
-    （https://github.com/longmaboy/Financial/blob/master/Image/alert1.png）
+    (https://github.com/longmaboy/Financial/blob/master/Image/alert1.png)
 
 # 使用方法
 
