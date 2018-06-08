@@ -8,7 +8,7 @@
 
 #import "MLAlertView.h"
 #import "UIView+MLExtension.h"
-#import "NSString+MString.h"
+#import "NSString+AttributedString.h"
 
 typedef void(^FinishBlock)(NSInteger index);
 
@@ -64,9 +64,9 @@ typedef void(^FinishBlock)(NSInteger index);
     CGFloat messageLineSpace;//副标题或描述多行情况下上下两行间的行距 适当调
     
     CGFloat msgAndLineViewSpace;//副标题或描述与横线之间的距离 大于0 适当调
-
+    
     CGFloat titleHeight;//titleLabel最顶上大标题占的高度 适当调
-
+    
     CGFloat btnHeight;//底部按钮item占的高度 适当调
     
     CGFloat bgViewAlpha;//自身背景灰色的alpha 0~1 越大越灰
@@ -83,11 +83,11 @@ typedef void(^FinishBlock)(NSInteger index);
         
         self.finishBlock = selectBlock;
         
+        self.messageAlignment = textAlignment;
+        
         self.titleString = title;
         
         self.messageString = message;
-        
-        self.messageAlignment = textAlignment;
         
         self.itemArr = itemArr;
         
@@ -98,7 +98,7 @@ typedef void(^FinishBlock)(NSInteger index);
     return self;
 }
 
-/**********基本配置 可根据自身UI适当修改************/
+/*********基本配置 可根据自身UI风格适当修改**********/
 /** 属性赋值配置不可删除 删除之后可能因为取不到值就蹦了 */
 - (void)defaultValueMethod
 {
@@ -119,12 +119,12 @@ typedef void(^FinishBlock)(NSInteger index);
     
     //副标题或描述的字体大小
     messageLabelFont = 16;
-
+    
     //副标题或描述多行情况下上下两行间的行距 可适当修改
     messageLineSpace = 4;
     
     //副标题或描述与横线之间的距离 大于0 适当调
-    msgAndLineViewSpace = 0;
+    msgAndLineViewSpace = 15;
     
     //titleLabel最顶上大标题占的高度 可适当修改
     titleHeight = 22;
@@ -203,12 +203,12 @@ typedef void(^FinishBlock)(NSInteger index);
     }else if (self.titleString.length && !self.messageString.length) {
         
         self.titleLabel.frame = CGRectMake(viewLeftRight, viewTop, viewWith-viewLeftRight*2, titleHeight);
-
+        
         self.lineView.frame   = CGRectMake(0, self.titleLabel.bottom+msgAndLineViewSpace, viewWith, 0.8);
         
     }else if (!self.titleString.length && self.messageString.length) {
         
-        self.messageLabel.frame = CGRectMake(viewLeftRight, viewTop, viewWith-viewLeftRight*2, [self.messageString getSpaceLabelHeightwithSpeace:messageLineSpace withLabel:self.messageLabel andWidth:viewWith-viewLeftRight*2]);
+        self.messageLabel.frame = CGRectMake(viewLeftRight, viewTop, viewWith-viewLeftRight*2, [self.messageString getSpaceLabelHeightwithSpeace:messageLineSpace withLabel:self.messageLabel andAlignment:self.messageAlignment andWidth:viewWith-viewLeftRight*2]);
         
         self.lineView.frame     = CGRectMake(0, self.messageLabel.bottom+msgAndLineViewSpace, viewWith, 0.8);
         
@@ -216,10 +216,10 @@ typedef void(^FinishBlock)(NSInteger index);
     {
         self.titleLabel.frame = CGRectMake(viewLeftRight, viewTop, viewWith-viewLeftRight*2, titleHeight);
         
-        self.messageLabel.frame = CGRectMake(viewLeftRight, self.titleLabel.bottom+12, viewWith-viewLeftRight*2, [self.messageString getSpaceLabelHeightwithSpeace:messageLineSpace withLabel:self.messageLabel andWidth:viewWith-viewLeftRight*2]);
+        self.messageLabel.frame = CGRectMake(viewLeftRight, self.titleLabel.bottom+12, viewWith-viewLeftRight*2, [self.messageString getSpaceLabelHeightwithSpeace:messageLineSpace withLabel:self.messageLabel andAlignment:self.messageAlignment andWidth:viewWith-viewLeftRight*2]);
         
         self.lineView.frame     = CGRectMake(0, self.messageLabel.bottom+msgAndLineViewSpace, viewWith, 0.8);
-
+        
     }
     
     if (!self.itemArr.count) {
@@ -301,15 +301,15 @@ typedef void(^FinishBlock)(NSInteger index);
         _maskView = [[UIView alloc] initWithFrame:view.bounds];
     }
     
-    self.maskView.backgroundColor = [UIColor grayColor];
-    self.maskView.alpha = (bgViewAlpha < 0 && bgViewAlpha > 1) ? 0.5 : bgViewAlpha;
+    self.maskView.backgroundColor = [UIColor clearColor];
+    
     [_maskView addSubview:self];
     [view addSubview:_maskView];
     self.center = view.center;
     
     self.transform = CGAffineTransformMakeScale(0, 0);
     [UIView animateWithDuration:0.25 animations:^{
-        
+        self.maskView.backgroundColor = [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:(bgViewAlpha < 0 && bgViewAlpha > 1) ? 0.5 : bgViewAlpha];
         self.transform = CGAffineTransformIdentity;
     }];
 }
@@ -333,7 +333,7 @@ typedef void(^FinishBlock)(NSInteger index);
     }
     
     self.messageLabel.text = messageString;
-    self.messageLabel.attributedText = [messageString stringWithParagraphlineSpeace:messageLineSpace andLabel:self.messageLabel];
+    self.messageLabel.attributedText = [messageString stringWithParagraphlineSpeace:messageLineSpace andAlignment:self.messageAlignment andLabel:self.messageLabel];
     
 }
 
@@ -350,7 +350,7 @@ typedef void(^FinishBlock)(NSInteger index);
         UIView *btnLineView = self.btnLineArr[i];
         btnLineView.backgroundColor = lineViewColor;
     }
-
+    
 }
 
 - (void)setItemTitleColorArr:(NSArray<UIColor *> *)itemTitleColorArr
@@ -369,7 +369,7 @@ typedef void(^FinishBlock)(NSInteger index);
         NSLog(@"没有颜色");
         return;
     }
-
+    
     if (self.buttonArr.count > self.itemTitleColorArr.count) {
         
         for (int i = 0; i < itemTitleColorArr.count; i ++) {
@@ -394,7 +394,7 @@ typedef void(^FinishBlock)(NSInteger index);
     }
     
     self.lineView.hidden = transverseLineHidden;
-
+    
     if (transverseLineHidden) {
         
         for (int i = 0; i < self.btnLineArr.count; i ++) {
@@ -440,7 +440,7 @@ typedef void(^FinishBlock)(NSInteger index);
     if (!_titleLabel) return;
     
     _titleLabel.font = titleLabelFont;
-
+    
 }
 
 - (void)setTitleLabelColor:(UIColor *)titleLabelColor
@@ -464,7 +464,7 @@ typedef void(^FinishBlock)(NSInteger index);
     if (!_messageLabel) return;
     
     _messageLabel.textColor = messageLabelColor;
-    _messageLabel.attributedText = [self.messageString stringWithParagraphlineSpeace:messageLineSpace andLabel:_messageLabel];
+    _messageLabel.attributedText = [self.messageString stringWithParagraphlineSpeace:messageLineSpace andAlignment:self.messageAlignment andLabel:_messageLabel];
     
 }
 

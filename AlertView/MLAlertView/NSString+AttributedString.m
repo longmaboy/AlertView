@@ -1,14 +1,14 @@
 //
-//  NSString+MString.m
+//  NSString+AttributedString.m
+//  AlertView
 //
-//
-//  Created by Mac on 2017/9/6.
-//  Copyright © 2017年 MLB. All rights reserved.
+//  Created by Admin on 2018/6/8.
+//  Copyright © 2018年 mlb. All rights reserved.
 //
 
-#import "NSString+MString.h"
+#import "NSString+AttributedString.h"
 
-@implementation NSString (MString)
+@implementation NSString (AttributedString)
 
 /**
  *  设置段落样式
@@ -16,17 +16,15 @@
  *  @param label      传入前先给label设置好
  *  @返回 富文本
  */
-- (NSAttributedString *)stringWithParagraphlineSpeace:(CGFloat)lineSpeace  andLabel:(UILabel *)label
+- (NSAttributedString *)stringWithParagraphlineSpeace:(CGFloat)lineSpeace andAlignment:(NSTextAlignment)alignment andLabel:(UILabel *)label
 {
     // 设置段落
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     
     // 行间距
     paragraphStyle.lineSpacing = lineSpeace;
-    
-//    paragraphStyle.alignment = NSTextAlignmentCenter;
-    
-    paragraphStyle.alignment = label.textAlignment;
+        
+    paragraphStyle.alignment = alignment;
     
     paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
     
@@ -50,7 +48,7 @@
  *  @param width      字体所占宽度
  *  @返回 富文本高度
  */
-- (CGFloat)getSpaceLabelHeightwithSpeace:(CGFloat)lineSpeace withLabel:(UILabel *)label andWidth:(CGFloat)width
+- (CGFloat)getSpaceLabelHeightwithSpeace:(CGFloat)lineSpeace withLabel:(UILabel *)label andAlignment:(NSTextAlignment)alignment andWidth:(CGFloat)width;
 {
     // 设置段落
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -58,7 +56,7 @@
     // 行间距
     paragraphStyle.lineSpacing = lineSpeace;
     
-    paragraphStyle.alignment = label.textAlignment;
+    paragraphStyle.alignment = alignment;
     
     paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
     
