@@ -124,13 +124,13 @@ typedef void(^FinishBlock)(NSInteger index);
     messageLineSpace = 4;
     
     //副标题或描述与横线之间的距离 大于0 适当调
-    msgAndLineViewSpace = 15;
+    msgAndLineViewSpace = 20;
     
     //titleLabel最顶上大标题占的高度 可适当修改
     titleHeight = 22;
     
     //底部按钮item占的高度 可适当修改
-    btnHeight = 60;
+    btnHeight = 50;
     
     //自身背景灰色的alpha 0~1 可适当修改 越大越灰
     bgViewAlpha = 0.8;
@@ -262,7 +262,7 @@ typedef void(^FinishBlock)(NSInteger index);
     if (btncount > 1) {
         for (int i = 1; i < btncount; i ++) {
             
-            UIView *btnLineView = [[UIView alloc] initWithFrame:CGRectMake(btnW*i, btnY, 0.5, btnH)];
+            UIView *btnLineView = [[UIView alloc] initWithFrame:CGRectMake(btnW*i, btnY, 0.8, btnH)];
             btnLineView.backgroundColor = [UIColor grayColor];
             [self addSubview:btnLineView];
             [self.btnLineArr addObject:btnLineView];
@@ -301,15 +301,14 @@ typedef void(^FinishBlock)(NSInteger index);
         _maskView = [[UIView alloc] initWithFrame:view.bounds];
     }
     
-    self.maskView.backgroundColor = [UIColor clearColor];
-    
+    self.maskView.backgroundColor = [UIColor colorWithRed:30/255.0 green:30/255.0 blue:30/255.0 alpha:(bgViewAlpha < 0 && bgViewAlpha > 1) ? 0.5 : bgViewAlpha];
+
     [_maskView addSubview:self];
     [view addSubview:_maskView];
     self.center = view.center;
     
     self.transform = CGAffineTransformMakeScale(0, 0);
     [UIView animateWithDuration:0.25 animations:^{
-        self.maskView.backgroundColor = [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:(bgViewAlpha < 0 && bgViewAlpha > 1) ? 0.5 : bgViewAlpha];
         self.transform = CGAffineTransformIdentity;
     }];
 }
