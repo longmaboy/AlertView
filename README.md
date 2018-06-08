@@ -3,8 +3,12 @@
 
 # 先看效果图
 
-![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
 ![Image text](https://github.com/longmaboy/Financial/blob/master/Image/alert1.png)
+![Image text](https://github.com/longmaboy/Financial/blob/master/Image/alert2.png)
+![Image text](https://github.com/longmaboy/Financial/blob/master/Image/alert3.png)
+![Image text](https://github.com/longmaboy/Financial/blob/master/Image/alert4.png)
+![Image text](https://github.com/longmaboy/Financial/blob/master/Image/alert5.png)
+![Image text](https://github.com/longmaboy/Financial/blob/master/Image/alert6.png)
 
 # 使用方法
 
