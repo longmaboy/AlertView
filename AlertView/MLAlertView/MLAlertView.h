@@ -37,5 +37,8 @@
 /** 总共最多3个item 按顺序把颜色放数组里面就行了，没item设置无效，多设置按顺序取 */
 @property (nonatomic, strong) NSArray<UIColor *> * itemTitleColorArr;
 
+/** 设置副标题某段文字的颜色 如果设置了副标题颜色messageLabelColor，必须放在前面，否则此处设置无效，会被messageLabelColor覆盖，如果没有副标题则此处设置无效 */
+- (void)messageLabelTextColorWith:(NSRange)range andColor:(UIColor *)color;
+
 
 @end

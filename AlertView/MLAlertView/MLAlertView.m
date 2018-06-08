@@ -29,6 +29,9 @@ typedef void(^FinishBlock)(NSInteger index);
 /** 副标题或描述的Alignment */
 @property (nonatomic, assign) NSTextAlignment messageAlignment;
 
+/** 副标题或描述的部分字体颜色 */
+@property (nonatomic, assign) NSRange range;
+
 /** 横线 */
 @property (nonatomic, strong) UIView * lineView;
 
@@ -262,7 +265,7 @@ typedef void(^FinishBlock)(NSInteger index);
     if (btncount > 1) {
         for (int i = 1; i < btncount; i ++) {
             
-            UIView *btnLineView = [[UIView alloc] initWithFrame:CGRectMake(btnW*i, btnY, 0.8, btnH)];
+            UIView *btnLineView = [[UIView alloc] initWithFrame:CGRectMake(btnW*i, btnY, 0.5, btnH)];
             btnLineView.backgroundColor = [UIColor grayColor];
             [self addSubview:btnLineView];
             [self.btnLineArr addObject:btnLineView];
@@ -321,6 +324,8 @@ typedef void(^FinishBlock)(NSInteger index);
         _titleString = titleString;
     }
     
+    if (!_titleString.length) return;
+    
     self.titleLabel.text = titleString;
     
 }
@@ -330,6 +335,8 @@ typedef void(^FinishBlock)(NSInteger index);
     if (_messageString != messageString) {
         _messageString = messageString;
     }
+    
+    if (!_messageString.length) return;
     
     self.messageLabel.text = messageString;
     self.messageLabel.attributedText = [messageString stringWithParagraphlineSpeace:messageLineSpace andAlignment:self.messageAlignment andLabel:self.messageLabel];
@@ -462,9 +469,21 @@ typedef void(^FinishBlock)(NSInteger index);
     
     if (!_messageLabel) return;
     
-    _messageLabel.textColor = messageLabelColor;
-    _messageLabel.attributedText = [self.messageString stringWithParagraphlineSpeace:messageLineSpace andAlignment:self.messageAlignment andLabel:_messageLabel];
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithAttributedString:_messageLabel.attributedText];
+    // 创建文字属性
+    NSDictionary * attriBute = @{NSForegroundColorAttributeName:messageLabelColor, NSFontAttributeName:self.messageLabel.font };
+    [attri addAttributes:attriBute range:NSMakeRange(0, self.messageString.length)];
+    _messageLabel.attributedText = attri;
     
+}
+
+- (void)messageLabelTextColorWith:(NSRange)range andColor:(UIColor *)color
+{
+    if (!_messageLabel) return;
+    
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithAttributedString:_messageLabel.attributedText];
+    [attri addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:range];
+    _messageLabel.attributedText = attri;
 }
 
 

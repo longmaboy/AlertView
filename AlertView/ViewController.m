@@ -23,7 +23,7 @@
     
     self.title = @"MLAlertView";
     
-    _titleArr = @[@"title+item", @"message+item", @"message+item+hidden-line", @"all", @"title+mesage+item1", @"mesage+item1", @"系统的alert"];
+    _titleArr = @[@"title+item", @"message+item", @"message+item+hidden-line", @"all", @"all-2", @"title+mesage+item1", @"mesage+item1", @"mesage+item1-2", @"系统的alert"];
     
     [self.tableView reloadData];
     
@@ -83,6 +83,9 @@
             
         }];
         
+        [alert messageLabelTextColorWith:NSMakeRange(3, 5) andColor:[UIColor redColor]];
+
+        
         alert.titleLabelFont = [UIFont systemFontOfSize:20 weight:550];
         
         [alert showWithView:self.navigationController.view];
@@ -110,6 +113,8 @@
             
         }];
         
+        [alert messageLabelTextColorWith:NSMakeRange(3, 5) andColor:[UIColor redColor]];
+        
         NSArray *colorArr = @[[UIColor greenColor],[UIColor greenColor]];
         alert.itemTitleColorArr = colorArr;
         
@@ -131,28 +136,60 @@
         //横线和竖线的颜色
         alert.lineViewColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1];
         
-        //副标题或描述的字体颜色
-        alert.messageLabelColor = [UIColor redColor];
+        //按钮item的颜色数组 按顺序取 实际最多只有3个按钮 如果颜色数组只有两个颜色，则最后一个颜色按钮是默认色，如果颜色数组颜色多了，只取前3个值
+        NSArray *colorArr = @[[UIColor blueColor],[UIColor cyanColor],[UIColor purpleColor],[UIColor redColor]];
+        alert.itemTitleColorArr = colorArr;
+        
+        //是否隐藏横线 竖线不隐藏 并且变短
+        //alert.transverseLineHidden = YES;
+        
+        //按钮item的字体
+        alert.buttonFont = [UIFont systemFontOfSize:15 weight:600];
+        
+        
+        //大标题的颜色
+        alert.titleLabelColor = [UIColor redColor];
+        
+        //副标题或描述的颜色
+        alert.messageLabelColor = [UIColor purpleColor];
+        
+        //设置副标题某段文字的颜色 如果设置了副标题颜色messageLabelColor，必须放在前面，否则此处设置无效，会被messageLabelColor覆盖，没有设置副标题则此处设置无效
+        [alert messageLabelTextColorWith:NSMakeRange(22, 25) andColor:[UIColor greenColor]];
+
+        
+        [self alertShow:alert];
+        
+    }
+    else if (indexPath.row == 4) {//all-2
+        
+        MLAlertView *alert = [[MLAlertView alloc] initWithTitle:nil andMessage:@"上海港货物吞吐量和集装箱吞吐量均居世界第一，设有中国大陆首个自贸区中国（上海）自由贸易试验区。上海市与安徽、江苏、浙江共同构成了长江三角洲城市群，是世界六大城市群之一。" andMessageAlignment:NSTextAlignmentCenter andItem:@[@"取消",@"确定",@"知道了"] andSelectBlock:^(NSInteger index) {
+            
+            NSLog(@"index->%ld",index);
+            
+        }];
+        
+        //横线和竖线的颜色
+        alert.lineViewColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1];
         
         //按钮item的颜色数组 按顺序取 实际最多只有3个按钮 如果颜色数组只有两个颜色，则最后一个颜色按钮是默认色，如果颜色数组颜色多了，只取前3个值
         NSArray *colorArr = @[[UIColor blueColor],[UIColor cyanColor],[UIColor purpleColor],[UIColor redColor]];
         alert.itemTitleColorArr = colorArr;
         
         //是否隐藏横线 竖线不隐藏 并且变短
-//        alert.transverseLineHidden = YES;
+        //alert.transverseLineHidden = YES;
         
         //按钮item的字体
         alert.buttonFont = [UIFont systemFontOfSize:15 weight:600];
-        
+
         //副标题或描述的颜色
-        alert.messageLabelColor = [UIColor purpleColor];
+        alert.messageLabelColor = [UIColor greenColor];
         
-        //大标题的颜色
-        alert.titleLabelColor = [UIColor redColor];
+        //设置副标题某段文字的颜色 如果设置了副标题颜色messageLabelColor，必须放在前面，否则此处设置无效，会被messageLabelColor覆盖，没有设置副标题则此处设置无效
+        [alert messageLabelTextColorWith:NSMakeRange(22, 25) andColor:[UIColor orangeColor]];
         
         [self alertShow:alert];
         
-    }else if (indexPath.row == 4) {//title+mesage+item1
+    }else if (indexPath.row == 5) {//title+mesage+item1
         
         MLAlertView *alert = [[MLAlertView alloc] initWithTitle:@"提交成功" andMessage:@"上海港货物吞吐量和集装箱吞吐量均居世界第一" andMessageAlignment:NSTextAlignmentCenter andItem:@[@"知道了"] andSelectBlock:^(NSInteger index) {
             
@@ -173,9 +210,39 @@
         //副标题或描述的颜色
         alert.messageLabelColor = [UIColor grayColor];
         
+        //设置副标题某段文字的颜色 如果设置了副标题颜色messageLabelColor，必须放在前面，否则此处设置无效，会被messageLabelColor覆盖，没有设置副标题则此处设置无效
+        [alert messageLabelTextColorWith:NSMakeRange(4, 7) andColor:[UIColor orangeColor]];
+        
         [self alertShow:alert];
         
-    }else if (indexPath.row == 5) {//mesage+item1
+    }else if (indexPath.row == 6) {//mesage+item1
+        
+        MLAlertView *alert = [[MLAlertView alloc] initWithTitle:nil andMessage:@"上海港货物吞吐量和集装箱吞吐量均居世界第一" andMessageAlignment:NSTextAlignmentCenter andItem:@[@"知道了"] andSelectBlock:^(NSInteger index) {
+            
+            NSLog(@"index->%ld",index);
+            
+        }];
+        
+        //横线和竖线的颜色
+        alert.lineViewColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1];
+        
+        //副标题或描述的字体颜色
+        alert.messageLabelColor = [UIColor redColor];
+        
+        //按钮item的颜色数组 按顺序取 实际最多只有3个按钮 如果颜色数组只有两个颜色，则最后一个颜色按钮是默认色，如果颜色数组颜色多了，只取前3个值
+        NSArray *colorArr = @[[UIColor greenColor]];
+        alert.itemTitleColorArr = colorArr;
+        
+        //副标题或描述的颜色
+        alert.messageLabelColor = [UIColor greenColor];
+        
+        //设置副标题某段文字的颜色 如果设置了副标题颜色messageLabelColor，必须放在前面，否则此处设置无效，会被messageLabelColor覆盖，没有设置副标题则此处设置无效
+        [alert messageLabelTextColorWith:NSMakeRange(4, 7) andColor:[UIColor orangeColor]];
+        
+        [self alertShow:alert];
+        
+    }
+    else if (indexPath.row == 7) {//mesage+item1
         
         MLAlertView *alert = [[MLAlertView alloc] initWithTitle:nil andMessage:@"上海港货物吞吐量和集装箱吞吐量均居世界第一" andMessageAlignment:NSTextAlignmentCenter andItem:@[@"知道了"] andSelectBlock:^(NSInteger index) {
             
@@ -196,9 +263,16 @@
         //副标题或描述的颜色
         alert.messageLabelColor = [UIColor grayColor];
         
+        alert.buttonFont = [UIFont systemFontOfSize:18 weight:550];
+        
+        alert.transverseLineHidden = YES;
+        
+        //设置副标题某段文字的颜色 如果设置了副标题颜色messageLabelColor，必须放在前面，否则此处设置无效，会被messageLabelColor覆盖，没有设置副标题则此处设置无效
+        [alert messageLabelTextColorWith:NSMakeRange(15, 6) andColor:[UIColor orangeColor]];
+        
         [self alertShow:alert];
         
-    }else if (indexPath.row == 6) {//system alert
+    }else if (indexPath.row == 8) {//system alert
         
         [self systemAlert];
     }
