@@ -2,8 +2,9 @@
 这个一个与系统UIAlertController相似的中间弹出的alertView，写这个是为了方便修改字体颜色、字体大小、间距等，现在的美工很膨胀，什么款都能搞出来！~~~
 
 # 先看效果图
-![Image text]
-(https://github.com/longmaboy/Financial/blob/master/Image/alert1.png)
+
+![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+![Image text](https://github.com/longmaboy/Financial/blob/master/Image/alert1.png)
 
 # 使用方法
 
