@@ -10,7 +10,7 @@
 ![Image text](https://github.com/longmaboy/Financial/blob/master/Image/alert5.png)
 ![Image text](https://github.com/longmaboy/Financial/blob/master/Image/alert6.png)
 
-# 使用方法
+# 使用方法 将轮子文件夹MLAlertView拖到自己项目导入#import "MLAlertView.h"即可
 
 1.创建
 
@@ -106,4 +106,46 @@
 
 
     @end
+
+# .m里面的基本属性设置，可根据自己UI修改
+
+    /*********基本配置 可根据自身UI风格适当修改**********/
+    /** 属性赋值配置不可删除 删除之后可能因为取不到值就蹦了 */
+    - (void)defaultValueMethod
+    {
+        //自身背景色
+        self.backgroundColor = [UIColor whiteColor];
+
+        self.layer.masksToBounds = YES;
+        self.layer.cornerRadius = 10;
+
+        //自身弹出alertView的宽度 屏幕宽*（0.5~0.9之间最佳）
+        viewWith = [UIScreen mainScreen].bounds.size.width*0.8;
+
+        //title距离顶部的距离 可适当修改
+        viewTop = 30;
+
+        //副标题或描述距离左右的距离 可适当修改
+        viewLeftRight = 20;
+
+        //副标题或描述的字体大小
+        messageLabelFont = 16;
+
+        //副标题或描述多行情况下上下两行间的行距 可适当修改
+        messageLineSpace = 4;
+
+        //副标题或描述与横线之间的距离 大于0 适当调
+        msgAndLineViewSpace = 20;
+
+        //titleLabel最顶上大标题占的高度 可适当修改
+        titleHeight = 22;
+
+        //底部按钮item占的高度 可适当修改
+        btnHeight = 50;
+
+        //自身背景灰色的alpha 0~1 可适当修改 越大越灰
+        bgViewAlpha = 0.8;
+
+    }
+
 
