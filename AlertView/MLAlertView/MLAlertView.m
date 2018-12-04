@@ -482,7 +482,7 @@ typedef void(^FinishBlock)(NSInteger index);
     if (!_messageLabel) return;
     
     NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithAttributedString:_messageLabel.attributedText];
-    [attri addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:range];
+    [attri addAttribute:NSForegroundColorAttributeName value:color range:range];
     _messageLabel.attributedText = attri;
 }
 
